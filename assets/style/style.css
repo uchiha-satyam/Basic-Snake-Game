@@ -1,0 +1,114 @@
+/* TAGS */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: url("../images/bg.jpg");
+	background-size: 100vw 100vh;
+	background-repeat: no-repeat;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+h1 {
+	font-family: 'Press Start 2P', cursive;
+	font-size: 5vh;	
+	color: burlywood;
+	text-shadow: 2px 2px 5px black;
+}
+
+/* CLASSES */
+
+.arrow {
+	padding-left: 5px;
+}
+
+.body {
+	align-items: center;
+	justify-content: center;
+}
+
+.btn {
+	font-family: 'Press Start 2P', cursive;
+	text-align: center;
+	font-size: 3vh;
+	display: inline-block;
+	margin:5px;
+	font-weight: bold;
+	padding: 10px 10px 10px 10px ;
+	background-color: lightgray;
+	text-shadow: -1px -1px black, 1px 1px white;
+	color: gray;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+	box-shadow: 0 1vh gray; 
+	cursor: pointer;
+}
+
+.btn:active {
+	box-shadow: none;
+	position: relative;
+	top: 1vh;
+}
+
+.control {
+	width: 50vw;
+	min-width: fit-content;
+	margin: 0 auto 4vh;
+	justify-content: space-between;
+}
+
+.control>.item1 {
+	flex-direction: column;
+	justify-self: start;
+}
+
+.control>.item2 {
+	align-self: center;
+	margin: 0 10vw;
+}
+
+.control>.item3 {
+	align-self: center;
+	justify-self: end;
+}
+
+.flex {
+	display: flex;
+}
+
+.heading {
+	text-align: center;
+}
+
+/* IDs */
+
+#board {
+	background: url("../images/grass.jpg");
+	margin: 2vh;
+	width: 72vmin;
+	height: 72vmin;
+	border: 3px solid burlywood;
+	display: grid;
+	grid-template-rows: repeat(18, 1fr);
+	grid-template-columns: repeat(18, 1fr);
+}
+
+#down>div {
+	transform: rotate(180deg);
+}
+
+#right>div {
+	transform: rotate(90deg);
+}
+
+#left>div {
+	transform: rotate(270deg);
+}
