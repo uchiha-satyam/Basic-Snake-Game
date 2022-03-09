@@ -33,27 +33,39 @@ const btnStart = document.getElementById('start');
 // GAME FUNCTIONS
 
 const arrowDown = () => {
-	velocity = {x: 0, y: speed};
-	const move = new Audio('assets/audio/move.mp3');
-	move.play();
+	if(state)
+	{
+		velocity = {x: 0, y: speed};
+		const move = new Audio('assets/audio/move.mp3');
+		move.play();
+	}
 };
 
 const arrowLeft = () => {
-	velocity = {x: -(speed), y: 0};
-	const move = new Audio('assets/audio/move.mp3');
-	move.play();
+	if(state)
+	{
+		velocity = {x: -(speed), y: 0};
+		const move = new Audio('assets/audio/move.mp3');
+		move.play();
+	}
 };
 
 const arrowRight = () => {
-	velocity = {x: speed, y: 0};
-	const move = new Audio('assets/audio/move.mp3');
-	move.play();
+	if(state)
+	{
+		velocity = {x: speed, y: 0};
+		const move = new Audio('assets/audio/move.mp3');
+		move.play();
+	}
 };
 
 const arrowUp = () => {
-	velocity = {x: 0, y: -(speed)};
-	const move = new Audio('assets/audio/move.mp3');
-	move.play();
+	if(state)
+	{
+		velocity = {x: 0, y: -(speed)};
+		const move = new Audio('assets/audio/move.mp3');
+		move.play();
+	}
 };
 
 const main = (ctime) => {
@@ -117,24 +129,22 @@ btnUp.onclick = arrowUp;
 document.addEventListener('keydown', e => {
 	if(e.code == 'Space')
 	start();
-	if(state == true)
+	else
+	switch(e.code)
 	{
-		switch(e.code)
-		{
-			case 'ArrowRight':
-				arrowRight();
-				break;
-			case 'ArrowLeft':
-				arrowLeft();
-				break;
-			case 'ArrowUp':
-				arrowUp();
-				break;
-			case 'ArrowDown':
-				arrowDown();
-				break;
-			default:
-				break;
-		}
+		case 'ArrowRight':
+			arrowRight();
+			break;
+		case 'ArrowLeft':
+			arrowLeft();
+			break;
+		case 'ArrowUp':
+			arrowUp();
+			break;
+		case 'ArrowDown':
+			arrowDown();
+			break;
+		default:
+			break;
 	}
 });
