@@ -6,7 +6,7 @@
 }
 
 body {
-	background: url("../images/bg.jpg");
+	background: url('../images/bg.jpg');
 	background-size: 100vw 100vh;
 	background-repeat: no-repeat;
 	height: 100vh;
@@ -84,21 +84,49 @@ h1 {
 	display: flex;
 }
 
+.food {
+	margin: 1px;
+	background-color: red;
+	border-radius: 45%;
+}
+
+.head {
+	margin: 1px;
+	background-color: brown;
+	border-radius: 15%;
+}
+
 .heading {
 	text-align: center;
+}
+
+.tail {
+	margin: 1px;
+	background-color: darkslategrey;
+	border-radius: 30%;
 }
 
 /* IDs */
 
 #board {
-	background: url("../images/grass.jpg");
+	/* background: url('../images/grass.jpg'); */
 	margin: 2vh;
 	width: 72vmin;
 	height: 72vmin;
 	border: 3px solid burlywood;
 	display: grid;
-	grid-template-rows: repeat(18, 1fr);
-	grid-template-columns: repeat(18, 1fr);
+	grid-template-rows: repeat(24, 1fr);
+	grid-template-columns: repeat(24, 1fr);
+}
+
+#board-bg {
+	background: url('../images/grass.jpg');
+	filter: blur(3px);
+	margin: 2vh;
+	width: 72vmin;
+	height: 72vmin;
+	position: absolute;
+	z-index: -1;
 }
 
 #down>div {
