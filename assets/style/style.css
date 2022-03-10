@@ -85,15 +85,18 @@ h1 {
 }
 
 .food {
-	margin: 1px;
-	background-color: red;
+	margin: 0px;
+	background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,0,0,1));
 	border-radius: 45%;
+	border: 0.25vmin solid black;
 }
 
 .head {
-	margin: 1px;
-	background-color: brown;
+	margin: 0vmin;
+	/* background-color: brown; */
+	background: linear-gradient(135deg, rgba(255,255,255,0.5), rgb(2, 160, 2));
 	border-radius: 15%;
+	border: 0.25vmin solid black;
 }
 
 .heading {
@@ -101,12 +104,41 @@ h1 {
 }
 
 .tail {
-	margin: 1px;
-	background-color: darkslategrey;
+	margin: 0.1vmin;
+	/* background-color: darkslategrey; */
+	background: linear-gradient(160deg, rgba(0,255,0,0.4), rgba(255,255,0,0.5));
 	border-radius: 30%;
+	border: 0.1vmin solid black;
 }
 
 /* IDs */
+
+#audioControl {
+	position: absolute;
+	top: 5vh;
+	font-family: 'Press Start 2P', cursive;
+	text-align: center;
+	font-size: 3vh;
+	display: inline-block;
+	margin:5px;
+	font-weight: bold;
+	padding: 10px 10px 10px 10px ;
+	background-color: dimgray;
+	/* text-shadow: -1px -1px black, 1px 1px white; */
+	text-shadow: 1px 1px 3px black;
+	color: gray;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+	box-shadow: 0 1vh gray; 
+	cursor: pointer;
+}
+
+#audioControl:active {
+	top: 6vh;
+	box-shadow: none;
+}
 
 #board {
 	/* background: url('../images/grass.jpg'); */
@@ -115,8 +147,8 @@ h1 {
 	height: 72vmin;
 	border: 3px solid burlywood;
 	display: grid;
-	grid-template-rows: repeat(24, 1fr);
-	grid-template-columns: repeat(24, 1fr);
+	/* grid-template-rows: repeat(24, 1fr);
+	grid-template-columns: repeat(24, 1fr); */
 }
 
 #board-bg {
@@ -133,10 +165,14 @@ h1 {
 	transform: rotate(180deg);
 }
 
+#left>div {
+	transform: rotate(270deg);
+}
+
 #right>div {
 	transform: rotate(90deg);
 }
 
-#left>div {
-	transform: rotate(270deg);
+#start {
+	width: 20vh;
 }
