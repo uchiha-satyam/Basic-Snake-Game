@@ -1,12 +1,12 @@
 // CONSTANTS AND VARIABLES
 
 let state = false;
-const fps = 6;
+let fps = 5;
 let ltime = 0;
 const grids = [16, 18, 20, 22, 24];
 let n = grids[0];
 
-let speed = 1;
+const speed = 1;
 let velocity = {
 	x: 0,
 	y: 0
@@ -18,7 +18,7 @@ let prevVelocity = {
 let snakeArr = [{x: n/2, y: n/2}];
 let foodLocation = {x: n/2 + 3, y: n/2 + 2};
 let score = 0;
-let highScore = 0;
+let highScore;
 
 // const gameStart = new Audio('assets/audio/gamestart.mp3');
 const eat = new Audio('assets/audio/eat.mp3');
@@ -41,7 +41,7 @@ const highScoreBoard = document.getElementById('highScore').getElementsByTagName
 // GAME FUNCTIONS
 
 const arrowDown = () => {
-	if(state)
+	if(state && velocity.y==0)
 	{
 		velocity = {x: 0, y: speed};
 		const move = new Audio('assets/audio/move.mp3');
@@ -50,7 +50,7 @@ const arrowDown = () => {
 };
 
 const arrowLeft = () => {
-	if(state)
+	if(state && velocity.x==0)
 	{
 		velocity = {x: -(speed), y: 0};
 		const move = new Audio('assets/audio/move.mp3');
@@ -59,7 +59,7 @@ const arrowLeft = () => {
 };
 
 const arrowRight = () => {
-	if(state)
+	if(state && velocity.x==0)
 	{
 		velocity = {x: speed, y: 0};
 		const move = new Audio('assets/audio/move.mp3');
@@ -68,7 +68,7 @@ const arrowRight = () => {
 };
 
 const arrowUp = () => {
-	if(state)
+	if(state && velocity.y==0)
 	{
 		velocity = {x: 0, y: -(speed)};
 		const move = new Audio('assets/audio/move.mp3');
@@ -152,6 +152,8 @@ const grid = (number) => {
 	btnGrid.textContent = number;
 	board.style.gridTemplateRows = 'repeat(' + n + ',1fr)';
 	board.style.gridTemplateColumns = 'repeat(' + n + ',1fr)';
+	highScore = (parseInt(localStorage.getItem('hiScore' + n)) || 0);
+	highScoreBoard.textContent = highScore;
 }
 
 const newFood = () => {
@@ -169,12 +171,23 @@ const reset = () => {
 	state = false;
 	score = 0;
 	scoreBoard.textContent = '0';
-	speed = 1;
+	fps = 5;
 	velocity = {x: 0, y: 0};
 	prevVelocity = {x: speed, y: 0};
 	snakeArr = [{x: n/2, y: n/2}];
 	foodLocation = {x: n/2 + 3, y: n/2 + 2};
 	btnStart.textContent = 'Start';
+};
+
+const scoreManager = () => {
+	score++;
+	scoreBoard.textContent = score;
+	if(score > highScore)
+	{
+		highScore = score;
+		localStorage.setItem('hiScore' + n, highScore);
+		highScoreBoard.textContent = highScore;
+	}
 };
 
 const start = () => {
@@ -212,14 +225,14 @@ const updateFrame = () => {
 
 	if(ate())
 	{
-		newFood();
 		eat.play();
 		snakeArr.unshift({
 			x: snakeArr[0].x + velocity.x,
 			y: snakeArr[0].y + velocity.y
 		});
-		score++;
-		scoreBoard.textContent = score;
+		scoreManager();
+		fps += 0.33;
+		newFood();
 	}
 
 	if(state)
@@ -266,7 +279,11 @@ window.requestAnimationFrame(main);
 // EVENT LISTENERS
 
 window.onload = () => {
+	highScore = (parseInt(localStorage.getItem('hiScore' + n)) || 0);
 	btnGrid.textContent = n;
+	scoreBoard.textContent = score;
+	highScoreBoard.textContent = highScore;
+	grid(n);
 };
 
 btnAudioControl.onclick = audioControl;
