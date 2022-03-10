@@ -3,7 +3,8 @@
 let state = false;
 const fps = 6;
 let ltime = 0;
-let n = 24;
+const grids = [16, 18, 20, 22, 24];
+let n = grids[0];
 
 let speed = 1;
 let velocity = {
@@ -17,6 +18,7 @@ let prevVelocity = {
 let snakeArr = [{x: n/2, y: n/2}];
 let foodLocation = {x: n/2 + 3, y: n/2 + 2};
 let score = 0;
+let highScore = 0;
 
 // const gameStart = new Audio('assets/audio/gamestart.mp3');
 const eat = new Audio('assets/audio/eat.mp3');
@@ -29,9 +31,12 @@ const board = document.getElementById('board');
 const btnAudioControl = document.getElementById('audioControl');
 const btnUp = document.getElementById('up');
 const btnDown = document.getElementById('down');
+const btnGrid = document.getElementById('grid');
 const btnLeft = document.getElementById('left');
 const btnRight = document.getElementById('right');
 const btnStart = document.getElementById('start');
+const scoreBoard = document.getElementById('score').getElementsByTagName('span')[0];
+const highScoreBoard = document.getElementById('highScore').getElementsByTagName('span')[0];
 
 // GAME FUNCTIONS
 
@@ -82,6 +87,8 @@ const ate = () => {
 };
 
 const audioControl = () => {
+	const move = new Audio('assets/audio/move.mp3');
+	move.play();
 	if(btnAudioControl.textContent == '🔊')
 	{
 		btnAudioControl.textContent = '🔇';
@@ -92,6 +99,16 @@ const audioControl = () => {
 		btnAudioControl.textContent = '🔊';
 		music.muted = false;
 	}
+};
+
+const changeGrid = () => {
+	const move = new Audio('assets/audio/move.mp3');
+	move.play();
+	let index = grids.indexOf(parseInt(btnGrid.textContent));
+	if(index == grids.length - 1)
+	grid(grids[0]);
+	else
+	grid(grids[index+1]);
 };
 
 const checkFood = (X,Y) => {
@@ -132,6 +149,7 @@ const grid = (number) => {
 		else
 		n = number+1;
 	}
+	btnGrid.textContent = number;
 	board.style.gridTemplateRows = 'repeat(' + n + ',1fr)';
 	board.style.gridTemplateColumns = 'repeat(' + n + ',1fr)';
 }
@@ -150,6 +168,7 @@ const newFood = () => {
 const reset = () => {
 	state = false;
 	score = 0;
+	scoreBoard.textContent = '0';
 	speed = 1;
 	velocity = {x: 0, y: 0};
 	prevVelocity = {x: speed, y: 0};
@@ -193,13 +212,14 @@ const updateFrame = () => {
 
 	if(ate())
 	{
+		newFood();
+		eat.play();
 		snakeArr.unshift({
 			x: snakeArr[0].x + velocity.x,
 			y: snakeArr[0].y + velocity.y
 		});
-		eat.play();
 		score++;
-		newFood();
+		scoreBoard.textContent = score;
 	}
 
 	if(state)
@@ -246,15 +266,12 @@ window.requestAnimationFrame(main);
 // EVENT LISTENERS
 
 window.onload = () => {
-	grid(18);
+	btnGrid.textContent = n;
 };
 
-btnAudioControl.onclick = () => {
-	const move = new Audio('assets/audio/move.mp3');
-	move.play();
-	audioControl();
-};
+btnAudioControl.onclick = audioControl;
 btnDown.onclick = arrowDown;
+btnGrid.onclick = changeGrid;
 btnLeft.onclick = arrowLeft;
 btnRight.onclick = arrowRight;
 btnStart.onclick = start;
@@ -280,6 +297,9 @@ window.addEventListener('keydown', e => {
 			break;
 		case 'Escape':
 			audioControl();
+			break;
+		case 'Backquote':
+			changeGrid();
 			break;
 		default:
 			// console.log(e.code);
